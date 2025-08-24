@@ -6,7 +6,8 @@ export const destinations: Destination[] = [
     name: 'Santorini Sunset',
     location: 'Greece',
     image: 'https://images.pexels.com/photos/1010657/pexels-photo-1010657.jpeg',
-    description: 'Experience the breathtaking sunsets of Santorini, with its iconic white buildings and blue domes overlooking the Aegean Sea.',
+    description:
+      'Experience the breathtaking sunsets of Santorini, with its iconic white buildings and blue domes overlooking the Aegean Sea.',
     rating: 4.9,
     price: 1299,
     category: 'beach',
@@ -16,7 +17,8 @@ export const destinations: Destination[] = [
     name: 'Kyoto Gardens',
     location: 'Japan',
     image: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg',
-    description: 'Explore the serene beauty of Kyoto\'s traditional gardens and ancient temples, especially stunning during cherry blossom season.',
+    description:
+      "Explore the serene beauty of Kyoto's traditional gardens and ancient temples, especially stunning during cherry blossom season.",
     rating: 4.8,
     price: 1599,
     category: 'historic',
@@ -26,7 +28,8 @@ export const destinations: Destination[] = [
     name: 'Machu Picchu',
     location: 'Peru',
     image: 'https://images.pexels.com/photos/2929906/pexels-photo-2929906.jpeg',
-    description: 'Discover the ancient Incan citadel set high in the Andes Mountains, offering incredible views and historical significance.',
+    description:
+      'Discover the ancient Incan citadel set high in the Andes Mountains, offering incredible views and historical significance.',
     rating: 4.9,
     price: 1899,
     category: 'historic',
@@ -36,7 +39,8 @@ export const destinations: Destination[] = [
     name: 'Swiss Alps',
     location: 'Switzerland',
     image: 'https://images.pexels.com/photos/290452/pexels-photo-290452.jpeg',
-    description: 'Ski or hike through the majestic Swiss Alps, featuring breathtaking mountain views, pristine lakes, and charming villages.',
+    description:
+      'Ski or hike through the majestic Swiss Alps, featuring breathtaking mountain views, pristine lakes, and charming villages.',
     rating: 4.7,
     price: 1499,
     category: 'mountain',
@@ -46,7 +50,8 @@ export const destinations: Destination[] = [
     name: 'New York City',
     location: 'USA',
     image: 'https://images.pexels.com/photos/802024/pexels-photo-802024.jpeg',
-    description: 'Experience the vibrant energy of the Big Apple with its iconic skyline, world-class museums, Broadway shows, and diverse neighborhoods.',
+    description:
+      'Experience the vibrant energy of the Big Apple with its iconic skyline, world-class museums, Broadway shows, and diverse neighborhoods.',
     rating: 4.6,
     price: 999,
     category: 'city',
@@ -56,7 +61,8 @@ export const destinations: Destination[] = [
     name: 'Bali Beaches',
     location: 'Indonesia',
     image: 'https://images.pexels.com/photos/1802255/pexels-photo-1802255.jpeg',
-    description: 'Relax on the stunning beaches of Bali, surrounded by tropical beauty, unique culture, and luxurious resorts.',
+    description:
+      'Relax on the stunning beaches of Bali, surrounded by tropical beauty, unique culture, and luxurious resorts.',
     rating: 4.7,
     price: 1099,
     category: 'beach',
@@ -66,7 +72,8 @@ export const destinations: Destination[] = [
     name: 'Tuscan Countryside',
     location: 'Italy',
     image: 'https://images.pexels.com/photos/2422588/pexels-photo-2422588.jpeg',
-    description: 'Immerse yourself in the rolling hills, vineyards, and charming villages of Tuscany, known for its beauty, history, and cuisine.',
+    description:
+      'Immerse yourself in the rolling hills, vineyards, and charming villages of Tuscany, known for its beauty, history, and cuisine.',
     rating: 4.8,
     price: 1299,
     category: 'countryside',
@@ -76,7 +83,8 @@ export const destinations: Destination[] = [
     name: 'Great Barrier Reef',
     location: 'Australia',
     image: 'https://images.pexels.com/photos/2767739/pexels-photo-2767739.jpeg',
-    description: 'Dive into the world\'s largest coral reef system, offering unparalleled marine biodiversity and underwater experiences.',
+    description:
+      "Dive into the world's largest coral reef system, offering unparalleled marine biodiversity and underwater experiences.",
     rating: 4.9,
     price: 1799,
     category: 'beach',

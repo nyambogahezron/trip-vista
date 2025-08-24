@@ -5,7 +5,8 @@ export const agencies: Agency[] = [
     id: '1',
     name: 'Global Adventurers',
     logo: 'https://images.pexels.com/photos/5717641/pexels-photo-5717641.jpeg',
-    description: 'Specializing in adventure travel for over 15 years, Global Adventurers creates unforgettable experiences for thrill-seekers worldwide.',
+    description:
+      'Specializing in adventure travel for over 15 years, Global Adventurers creates unforgettable experiences for thrill-seekers worldwide.',
     rating: 4.8,
     specialties: ['Adventure', 'Hiking', 'Safari'],
     founded: 2008,
@@ -21,8 +22,10 @@ export const agencies: Agency[] = [
         destination: 'Tanzania',
         duration: '10 days',
         price: 2999,
-        image: 'https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg',
-        description: 'Conquer Africa\'s highest peak with our experienced guides. This challenging trek offers breathtaking views and an unforgettable achievement.',
+        image:
+          'https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg',
+        description:
+          "Conquer Africa's highest peak with our experienced guides. This challenging trek offers breathtaking views and an unforgettable achievement.",
       },
       {
         id: 't2',
@@ -30,8 +33,10 @@ export const agencies: Agency[] = [
         destination: 'Brazil',
         duration: '7 days',
         price: 1899,
-        image: 'https://images.pexels.com/photos/2739664/pexels-photo-2739664.jpeg',
-        description: 'Venture deep into the Amazon rainforest to discover exotic wildlife, meet indigenous tribes, and experience the world\'s most biodiverse ecosystem.',
+        image:
+          'https://images.pexels.com/photos/2739664/pexels-photo-2739664.jpeg',
+        description:
+          "Venture deep into the Amazon rainforest to discover exotic wildlife, meet indigenous tribes, and experience the world's most biodiverse ecosystem.",
       },
     ],
   },
@@ -39,7 +44,8 @@ export const agencies: Agency[] = [
     id: '2',
     name: 'Luxury Escapes',
     logo: 'https://images.pexels.com/photos/2224099/pexels-photo-2224099.jpeg',
-    description: 'Providing premium travel experiences with personalized service, exclusive accommodations, and unforgettable moments for discerning travelers.',
+    description:
+      'Providing premium travel experiences with personalized service, exclusive accommodations, and unforgettable moments for discerning travelers.',
     rating: 4.9,
     specialties: ['Luxury', 'Honeymoon', 'Cruise'],
     founded: 2012,
@@ -55,8 +61,10 @@ export const agencies: Agency[] = [
         destination: 'Greek Islands',
         duration: '14 days',
         price: 8999,
-        image: 'https://images.pexels.com/photos/163236/luxury-yacht-boat-speed-water-163236.jpeg',
-        description: 'Sail the crystal-clear waters of the Mediterranean on a private yacht, exploring hidden coves, charming villages, and exclusive beaches.',
+        image:
+          'https://images.pexels.com/photos/163236/luxury-yacht-boat-speed-water-163236.jpeg',
+        description:
+          'Sail the crystal-clear waters of the Mediterranean on a private yacht, exploring hidden coves, charming villages, and exclusive beaches.',
       },
       {
         id: 't4',
@@ -64,8 +72,10 @@ export const agencies: Agency[] = [
         destination: 'France',
         duration: '5 days',
         price: 4599,
-        image: 'https://images.pexels.com/photos/699466/pexels-photo-699466.jpeg',
-        description: 'Experience the height of French elegance with 5-star accommodations, private tours of landmarks, and exclusive dining experiences.',
+        image:
+          'https://images.pexels.com/photos/699466/pexels-photo-699466.jpeg',
+        description:
+          'Experience the height of French elegance with 5-star accommodations, private tours of landmarks, and exclusive dining experiences.',
       },
     ],
   },
@@ -73,7 +83,8 @@ export const agencies: Agency[] = [
     id: '3',
     name: 'Cultural Voyages',
     logo: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg',
-    description: 'Specializing in immersive cultural experiences that connect travelers with local traditions, history, and authentic experiences.',
+    description:
+      'Specializing in immersive cultural experiences that connect travelers with local traditions, history, and authentic experiences.',
     rating: 4.7,
     specialties: ['Cultural', 'Historical', 'Culinary'],
     founded: 2010,
@@ -89,8 +100,10 @@ export const agencies: Agency[] = [
         destination: 'Japan',
         duration: '12 days',
         price: 3499,
-        image: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg',
-        description: 'Immerse yourself in Japanese culture with tea ceremonies, traditional accommodations, cooking classes, and visits to ancient temples.',
+        image:
+          'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg',
+        description:
+          'Immerse yourself in Japanese culture with tea ceremonies, traditional accommodations, cooking classes, and visits to ancient temples.',
       },
       {
         id: 't6',
@@ -98,8 +111,10 @@ export const agencies: Agency[] = [
         destination: 'Morocco',
         duration: '8 days',
         price: 1999,
-        image: 'https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg',
-        description: 'Explore bustling souks, historic medinas, and desert landscapes while experiencing authentic Moroccan hospitality and cuisine.',
+        image:
+          'https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg',
+        description:
+          'Explore bustling souks, historic medinas, and desert landscapes while experiencing authentic Moroccan hospitality and cuisine.',
       },
     ],
   },

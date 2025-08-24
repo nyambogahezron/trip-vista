@@ -7,10 +7,10 @@ import CategoriesCard from '../../components/CategoriesCard';
 const Categories = () => {
   // return all expect for all categories
   const filteredCategoriesData = categoriesData.filter(
-    (category) => category.title !== 'All'
+    category => category.title !== 'All'
   );
   return (
-    <SafeAreaView className='flex-1 bg-bgColor'>
+    <SafeAreaView className="flex-1 bg-bgColor">
       <Stack.Screen
         options={{
           headerTitleAlign: 'center',
@@ -21,10 +21,10 @@ const Categories = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => router.back()}
-              className='bg-white bg-opacity-50 rounded-lg p-1 '
+              className="bg-white bg-opacity-50 rounded-lg p-1 "
             >
-              <View className='bg-gray-200 ml-2 p-2 rounded-lg'>
-                <Feather name='arrow-left' size={20} />
+              <View className="bg-gray-200 ml-2 p-2 rounded-lg">
+                <Feather name="arrow-left" size={20} />
               </View>
             </TouchableOpacity>
           ),
@@ -37,11 +37,11 @@ const Categories = () => {
         }}
       />
 
-      <View className='flex-1  bg-white'>
+      <View className="flex-1  bg-white">
         <FlatList
           data={filteredCategoriesData}
           renderItem={CategoriesCard}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
           numColumns={2}
           contentContainerStyle={{ paddingHorizontal: 8 }}
           showsVerticalScrollIndicator={false}

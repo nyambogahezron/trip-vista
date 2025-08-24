@@ -68,11 +68,10 @@ const deleteTravelGroup = asyncWrapper(async (req, res) => {
   res.status(StatusCodes.OK).json({ travelGroup });
 });
 
-
 module.exports = {
-    createTravelGroup,
-    getAllTravelGroups,
-    getTravelGroup,
-    updateTravelGroup,
-    deleteTravelGroup,
-}
+  createTravelGroup,
+  getAllTravelGroups,
+  getTravelGroup,
+  updateTravelGroup,
+  deleteTravelGroup,
+};

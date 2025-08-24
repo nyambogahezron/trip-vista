@@ -9,11 +9,7 @@ const StatsSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {statistics.map((stat, index) => (
-            <StatCounter 
-              key={stat.label} 
-              stat={stat} 
-              delay={index * 0.1}
-            />
+            <StatCounter key={stat.label} stat={stat} delay={index * 0.1} />
           ))}
         </div>
       </div>

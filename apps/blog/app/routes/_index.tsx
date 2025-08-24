@@ -1,5 +1,5 @@
-import { CounterButton } from "@repo/ui/counter-button";
-import { Link } from "@repo/ui/link";
+import { CounterButton } from '@repo/ui/counter-button';
+import { Link } from '@repo/ui/link';
 
 export default function Index() {
   return (
@@ -11,7 +11,7 @@ export default function Index() {
       <CounterButton />
       <p className="description">
         Built With <Link href="https://turborepo.com">Turborepo</Link>
-        {" & "}
+        {' & '}
         <Link href="https://remix.run/">Remix</Link>
       </p>
     </div>

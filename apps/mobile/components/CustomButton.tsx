@@ -31,9 +31,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       {isLoading && (
         <ActivityIndicator
           animating={isLoading}
-          color='#fff'
-          size='small'
-          className='ml-2'
+          color="#fff"
+          size="small"
+          className="ml-2"
         />
       )}
     </TouchableOpacity>

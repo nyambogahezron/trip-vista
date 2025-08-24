@@ -1,6 +1,6 @@
-import "./styles.css";
-import { CounterButton } from "@repo/ui/counter-button";
-import { Link } from "@repo/ui/link";
+import './styles.css';
+import { CounterButton } from '@repo/ui/counter-button';
+import { Link } from '@repo/ui/link';
 
 function App() {
   return (
@@ -11,11 +11,11 @@ function App() {
       </h1>
       <CounterButton />
       <p className="description">
-        Built With{" "}
+        Built With{' '}
         <Link href="https://turborepo.com" newTab>
           Turborepo
         </Link>
-        {" & "}
+        {' & '}
         <Link href="https://vitejs.dev/" newTab>
           Vite
         </Link>

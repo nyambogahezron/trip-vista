@@ -52,7 +52,7 @@ app.use('/api/v1/listing', listingRoutes);
 app.use('/api/v1/travelGroup', travelGroupsRoutes);
 
 app.get('/', (req, res) => {
-   res.send('<h1>TRIP-VISTA API</h1><a href="/api-docs">Documentation</a>');
+  res.send('<h1>TRIP-VISTA API</h1><a href="/api-docs">Documentation</a>');
 });
 
 // api documentation
