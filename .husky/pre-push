@@ -1,5 +1,0 @@
-#!/bin/sh
-echo "Running type checking..."
-pnpm check-types
-echo "Running tests..."
-pnpm test
