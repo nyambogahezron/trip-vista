@@ -18,7 +18,7 @@ interface AppLayoutProps {
 export default function AppLayout({ children, title }: AppLayoutProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider defaultTheme="system">
         <TooltipProvider>
           <Head title={title} />
           <div className="min-h-screen flex flex-col">

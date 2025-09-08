@@ -16,8 +16,6 @@ export default function () {
   const videosLinks = [
     "https://assets.mixkit.co/videos/5363/5363-720.mp4",
     "https://assets.mixkit.co/videos/5000/5000-720.mp4",
-    "https://assets.mixkit.co/videos/5048/5048-720.mp4",
-    "https://assets.mixkit.co/videos/5063/5063-720.mp4",
     "https://assets.mixkit.co/videos/5002/5002-720.mp4"
   ]
 
