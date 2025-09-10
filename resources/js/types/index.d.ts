@@ -40,3 +40,32 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+
+export interface Destination {
+    id: number;
+    name: string;
+    location: string;
+    description: string;
+    price: number;
+    image: string;
+    rating: number;
+    reviews: number;
+    duration: string;
+    highlights: string[];
+}
+
+export interface Agency {
+    id: number;
+    name: string;
+    description: string;
+    logo: string;
+    featuredImage: string;
+    rating: number;
+    reviewCount: number;
+    specialties: string[];
+    established: string;
+    destinations: number;
+    website: string;
+    location: string;
+}

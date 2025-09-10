@@ -1,103 +1,87 @@
-
 export interface Destination {
-  id: number;
-  name: string;
-  country: string;
-  description: string;
-  image: string;
-  category: string;
-  rating: number;
-  price: string;
-  activities: string[];
+    id: number;
+    name: string;
+    location: string;
+    description: string;
+    price: number;
+    image: string;
+    rating: number;
+    reviews: number;
+    duration: string;
+    highlights: string[];
 }
 
 export const destinations: Destination[] = [
-  {
-    id: 1,
-    name: "Santorini",
-    country: "Greece",
-    description: "Iconic island with white-washed buildings and blue domes overlooking the Aegean Sea.",
-    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2574&auto=format&fit=crop",
-    category: "Island",
-    rating: 4.8,
-    price: "$1,200",
-    activities: ["Sunset Watching", "Wine Tasting", "Sailing", "Beach Hopping"]
-  },
-  {
-    id: 2,
-    name: "Kyoto",
-    country: "Japan",
-    description: "Ancient city with thousands of temples, shrines and traditional wooden houses.",
-    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2670&auto=format&fit=crop",
-    category: "Cultural",
-    rating: 4.7,
-    price: "$1,500",
-    activities: ["Temple Visits", "Tea Ceremony", "Cherry Blossom Viewing", "Geisha District Tour"]
-  },
-  {
-    id: 3,
-    name: "Machu Picchu",
-    country: "Peru",
-    description: "Ancient Incan citadel set high in the Andes Mountains, above the Urubamba River valley.",
-    image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=2670&auto=format&fit=crop",
-    category: "Historical",
-    rating: 4.9,
-    price: "$1,800",
-    activities: ["Guided Tours", "Hiking", "Photography", "Archaeology Exploration"]
-  },
-  {
-    id: 4,
-    name: "Serengeti",
-    country: "Tanzania",
-    description: "Vast ecosystem in northern Tanzania, known for its annual migration of wildebeest and zebra.",
-    image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=2532&auto=format&fit=crop",
-    category: "Safari",
-    rating: 4.9,
-    price: "$2,500",
-    activities: ["Wildlife Safari", "Hot Air Balloon Rides", "Photography Tours", "Camping"]
-  },
-  {
-    id: 5,
-    name: "Bali",
-    country: "Indonesia",
-    description: "Beautiful island known for its forested volcanic mountains, iconic rice paddies, beaches and coral reefs.",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2538&auto=format&fit=crop",
-    category: "Island",
-    rating: 4.5,
-    price: "$900",
-    activities: ["Surfing", "Temple Visits", "Rice Terrace Tours", "Spa Treatments"]
-  },
-  {
-    id: 6,
-    name: "Amalfi Coast",
-    country: "Italy",
-    description: "Stunning coastline with dramatic cliffs and a road connecting picturesque towns.",
-    image: "https://images.unsplash.com/photo-1612698093608-4cf302df8e69?q=80&w=2670&auto=format&fit=crop",
-    category: "Coastal",
-    rating: 4.7,
-    price: "$1,400",
-    activities: ["Boat Tours", "Coastal Hiking", "Beach Relaxation", "Italian Cuisine"]
-  },
-  {
-    id: 7,
-    name: "Banff National Park",
-    country: "Canada",
-    description: "Filled with mountains, coniferous forest and turquoise glacial lakes in Alberta.",
-    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2670&auto=format&fit=crop",
-    category: "Mountains",
-    rating: 4.8,
-    price: "$1,100",
-    activities: ["Hiking", "Skiing", "Wildlife Watching", "Canoeing"]
-  },
-  {
-    id: 8,
-    name: "Great Barrier Reef",
-    country: "Australia",
-    description: "World's largest coral reef system composed of over 2,900 individual reefs and 900 islands.",
-    image: "https://images.unsplash.com/photo-1518555978560-e10c50cf9b68?q=80&w=2592&auto=format&fit=crop",
-    category: "Marine",
-    rating: 4.6,
-    price: "$1,700",
-    activities: ["Scuba Diving", "Snorkeling", "Glass-Bottom Boat Tours", "Island Hopping"]
-  }
+    {
+        id: 1,
+        name: 'Bali Paradise',
+        location: 'Bali, Indonesia',
+        description: 'Experience the magical beauty of Bali with pristine beaches, ancient temples, and vibrant culture.',
+        price: 1299,
+        image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800&h=600&fit=crop',
+        rating: 4.8,
+        reviews: 324,
+        duration: '7 days',
+        highlights: ['Beautiful beaches', 'Cultural temples', 'Traditional cuisine', 'Scenic rice terraces'],
+    },
+    {
+        id: 2,
+        name: 'Swiss Alps Adventure',
+        location: 'Switzerland',
+        description: 'Discover the breathtaking Swiss Alps with snow-capped mountains, crystal-clear lakes, and charming villages.',
+        price: 2199,
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+        rating: 4.9,
+        reviews: 256,
+        duration: '10 days',
+        highlights: ['Mountain hiking', 'Scenic railways', 'Alpine villages', 'Winter sports'],
+    },
+    {
+        id: 3,
+        name: 'Tokyo City Break',
+        location: 'Tokyo, Japan',
+        description: 'Immerse yourself in the vibrant culture of Tokyo with modern skyscrapers, traditional shrines, and world-class cuisine.',
+        price: 1599,
+        image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop',
+        rating: 4.7,
+        reviews: 412,
+        duration: '5 days',
+        highlights: ['Modern city life', 'Traditional temples', 'Amazing food', 'Cherry blossoms'],
+    },
+    {
+        id: 4,
+        name: 'Santorini Escape',
+        location: 'Santorini, Greece',
+        description: 'Relax on the stunning Greek island of Santorini with white-washed buildings, blue domes, and spectacular sunsets.',
+        price: 1799,
+        image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&h=600&fit=crop',
+        rating: 4.8,
+        reviews: 189,
+        duration: '6 days',
+        highlights: ['Sunset views', 'White architecture', 'Wine tasting', 'Volcanic beaches'],
+    },
+    {
+        id: 5,
+        name: 'Machu Picchu Trek',
+        location: 'Peru',
+        description: 'Embark on an unforgettable journey to the ancient citadel of Machu Picchu through the Andes Mountains.',
+        price: 1899,
+        image: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800&h=600&fit=crop',
+        rating: 4.9,
+        reviews: 167,
+        duration: '8 days',
+        highlights: ['Ancient ruins', 'Mountain trekking', 'Inca history', 'Andean culture'],
+    },
+    {
+        id: 6,
+        name: 'Safari Kenya',
+        location: 'Kenya, Africa',
+        description: "Experience the wild beauty of Africa with incredible wildlife safaris in Kenya's national parks.",
+        price: 2299,
+        image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=600&fit=crop',
+        rating: 4.8,
+        reviews: 134,
+        duration: '12 days',
+        highlights: ['Wildlife safari', 'Big Five animals', 'Masai culture', 'Great migration'],
+    },
 ];

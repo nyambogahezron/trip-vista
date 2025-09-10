@@ -1,4 +1,6 @@
-import { about, agencies, contact, dashboard, destinations, home, login, register } from '@/routes';
+import { about, contact, dashboard, home, login, register } from '@/routes';
+import agencies from '@/routes/agencies';
+import destinations from '@/routes/destinations';
 import { SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { Compass, Menu, X } from 'lucide-react';
@@ -14,8 +16,8 @@ export default function Navbar() {
     const routes = useMemo(
         () => ({
             home: home().url,
-            destinations: destinations().url,
-            agencies: agencies().url,
+            destinations: destinations.index().url,
+            agencies: agencies.index().url,
             about: about().url,
             contact: contact().url,
             dashboard: dashboard().url,
@@ -128,7 +130,7 @@ export default function Navbar() {
                         <>
                             <Link
                                 href={dashboard()}
-                                className="inline-block rounded-sm px-2 py-1.5 text-sm leading-normal text-[#1b1b18] dark:text-[#EDEDEC] hover:text-blue-600"
+                                className="inline-block rounded-sm px-2 py-1.5 text-sm leading-normal text-[#1b1b18] hover:text-blue-600 dark:text-[#EDEDEC]"
                             >
                                 Hey 👋 {auth.user.name}
                             </Link>
