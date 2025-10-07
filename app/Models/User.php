@@ -63,6 +63,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the reviews for the user.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /**
      * Get unread notifications count.
      */
     public function getUnreadNotificationsCountAttribute(): int

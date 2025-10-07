@@ -17,6 +17,7 @@ class AgencySeeder extends Seeder
         $featuredAgencies = [
             [
                 'name' => 'Adventure Seekers Travel',
+                'logo' => 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=face',
                 'description' => 'Specializing in thrilling outdoor adventures and extreme sports travel experiences around the world.',
                 'email' => 'info@adventureseekers.com',
                 'phone' => '+1-555-0101',
@@ -29,9 +30,11 @@ class AgencySeeder extends Seeder
                 ],
                 'rating' => 4.8,
                 'location' => 'Mountain View, California',
+                'featured_image' => 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop',
             ],
             [
                 'name' => 'Tropical Paradise Tours',
+                'logo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
                 'description' => 'Your gateway to the most beautiful tropical destinations, beaches, and island getaways worldwide.',
                 'email' => 'bookings@tropicalparadise.com',
                 'phone' => '+1-555-0202',
@@ -44,9 +47,11 @@ class AgencySeeder extends Seeder
                 ],
                 'rating' => 4.9,
                 'location' => 'Miami, Florida',
+                'featured_image' => 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
             ],
             [
                 'name' => 'Cultural Heritage Expeditions',
+                'logo' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
                 'description' => 'Immerse yourself in rich cultures and historical sites with our expertly guided cultural tours.',
                 'email' => 'explore@culturalheritage.com',
                 'phone' => '+1-555-0303',
@@ -59,9 +64,11 @@ class AgencySeeder extends Seeder
                 ],
                 'rating' => 4.7,
                 'location' => 'Boston, Massachusetts',
+                'featured_image' => 'https://images.unsplash.com/photo-1539650116574-75c0c6d73df5?w=800&h=600&fit=crop',
             ],
             [
                 'name' => 'Urban Explorer Tours',
+                'logo' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face',
                 'description' => 'Discover the best of city life with our comprehensive urban exploration and metropolitan tours.',
                 'email' => 'hello@urbanexplorer.com',
                 'phone' => '+1-555-0404',
@@ -74,9 +81,11 @@ class AgencySeeder extends Seeder
                 ],
                 'rating' => 4.6,
                 'location' => 'New York, New York',
+                'featured_image' => 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
             ],
             [
                 'name' => 'Wildlife Safari Adventures',
+                'logo' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
                 'description' => 'Experience the wild side of nature with our authentic safari experiences and wildlife encounters.',
                 'email' => 'safari@wildlifeadventures.com',
                 'phone' => '+1-555-0505',
@@ -89,6 +98,7 @@ class AgencySeeder extends Seeder
                 ],
                 'rating' => 4.9,
                 'location' => 'Denver, Colorado',
+                'featured_image' => 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=600&fit=crop',
             ],
         ];
 

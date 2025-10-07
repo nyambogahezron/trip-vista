@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,13 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('agency_id');
             $table->foreign('agency_id')->references('id')->on('agencies')->onDelete('cascade');
             $table->string('name')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('location')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('category')->nullable();
-            $table->string('rating')->nullable();
-            $table->string('price')->nullable();
-            $table->string('activities');
+            $table->decimal('rating', 3, 2)->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->json('activities')->nullable();
         });
     }
 

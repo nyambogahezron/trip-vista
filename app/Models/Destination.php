@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Destination extends Model
 {
@@ -47,11 +48,47 @@ class Destination extends Model
     }
 
     /**
+     * Get all of the destination's reviews.
+     */
+    public function reviews(): MorphMany
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    /**
+     * Get approved reviews for the destination.
+     */
+    public function approvedReviews(): MorphMany
+    {
+        return $this->reviews()->approved();
+    }
+
+    /**
      * Get the average rating for the destination.
      */
     public function getAverageRatingAttribute(): float
     {
-        return $this->bookings()->avg('rating') ?? 0;
+        return $this->approvedReviews()->avg('rating') ?? 0;
+    }
+
+    /**
+     * Get the total review count for the destination.
+     */
+    public function getReviewCountAttribute(): int
+    {
+        return $this->approvedReviews()->count();
+    }
+
+    /**
+     * Get the rating distribution for the destination.
+     */
+    public function getRatingDistributionAttribute(): array
+    {
+        $distribution = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $distribution[$i] = $this->approvedReviews()->where('rating', $i)->count();
+        }
+        return $distribution;
     }
 
     /**

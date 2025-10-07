@@ -30,8 +30,20 @@ class AgencyFactory extends Factory
             ],
             'rating' => $this->faker->randomFloat(1, 3.0, 5.0),
             'location' => $this->faker->city() . ', ' . $this->faker->country(),
-            'logo' => null, // Will be set manually or by seeder if needed
-            'featured_image' => null, // Will be set manually or by seeder if needed
+            'logo' => 'https://images.unsplash.com/photo-' . $this->faker->randomElement([
+                '1472099645785-5658abf4ff4e',
+                '1507003211169-0a1dd7228f2d',
+                '1506905925346-21bda4d32df4',
+                '1560250097-0b93528c311a',
+                '1500648767791-00dcc994a43e'
+            ]) . '?w=400&h=400&fit=crop&crop=face',
+            'featured_image' => 'https://images.unsplash.com/photo-' . $this->faker->randomElement([
+                '1551632811-561732d1e306',
+                '1506905925346-21bda4d32df4',
+                '1539650116574-75c0c6d73df5',
+                '1444723121867-7a241cacace9',
+                '1547036967-23d11aacaee0'
+            ]) . '?w=800&h=600&fit=crop',
         ];
     }
 
@@ -61,10 +73,10 @@ class AgencyFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (\App\Models\Agency $agency) {
-            // Create destinations for this agency
-            \App\Models\Destination::factory(rand(3, 8))->create([
-                'agency_id' => $agency->id,
-            ]);
+            // Destinations will be created by the DestinationSeeder to avoid conflicts
+            // \App\Models\Destination::factory(rand(3, 8))->create([
+            //     'agency_id' => $agency->id,
+            // ]);
         });
     }
 }

@@ -52,6 +52,10 @@ class DatabaseSeeder extends Seeder
         $this->command->info('🔔 Seeding notifications...');
         $this->call(NotificationSeeder::class);
 
+        // Seed reviews
+        $this->command->info('⭐ Seeding reviews...');
+        $this->call(ReviewSeeder::class);
+
         $this->command->info('✅ Database seeding completed successfully!');
         $this->command->line('');
         $this->command->line('🔑 Login credentials:');
