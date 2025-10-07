@@ -11,6 +11,8 @@ export interface Agency {
     destinations: number;
     website: string;
     location: string;
+    foundedYear: number;
+    locations: string[];
 }
 
 export const agencies: Agency[] = [
@@ -26,8 +28,10 @@ export const agencies: Agency[] = [
         specialties: ['Adventure Travel', 'Extreme Sports', 'Mountain Expeditions'],
         established: '2010',
         destinations: 45,
-        website: 'https://adventureworld.com',
+        website: 'adventureworld.com',
         location: 'Denver, USA',
+        foundedYear: 2010,
+        locations: ['Denver', 'Boulder', 'Aspen', 'Vail', 'Telluride', 'Jackson Hole'],
     },
     {
         id: 2,
@@ -40,8 +44,10 @@ export const agencies: Agency[] = [
         specialties: ['Luxury Travel', 'Five-Star Hotels', 'Private Tours'],
         established: '2008',
         destinations: 32,
-        website: 'https://luxuryescapes.com',
+        website: 'luxuryescapes.com',
         location: 'London, UK',
+        foundedYear: 2008,
+        locations: ['London', 'Paris', 'Monaco', 'Dubai', 'Tokyo', 'New York'],
     },
     {
         id: 3,
@@ -54,8 +60,10 @@ export const agencies: Agency[] = [
         specialties: ['Cultural Tours', 'Local Experiences', 'Heritage Sites'],
         established: '2012',
         destinations: 28,
-        website: 'https://culturaljourneys.com',
+        website: 'culturaljourneys.com',
         location: 'Barcelona, Spain',
+        foundedYear: 2012,
+        locations: ['Barcelona', 'Madrid', 'Seville', 'Granada', 'Valencia', 'Bilbao'],
     },
     {
         id: 4,
@@ -68,8 +76,10 @@ export const agencies: Agency[] = [
         specialties: ['Eco Tourism', 'Wildlife Conservation', 'Sustainable Travel'],
         established: '2015',
         destinations: 22,
-        website: 'https://ecoadventures.com',
+        website: 'ecoadventures.com',
         location: 'Costa Rica',
+        foundedYear: 2015,
+        locations: ['San José', 'Manuel Antonio', 'Monteverde', 'Tortuguero', 'Guanacaste'],
     },
     {
         id: 5,
@@ -82,8 +92,10 @@ export const agencies: Agency[] = [
         specialties: ['Family Travel', 'Theme Parks', 'Educational Tours'],
         established: '2009',
         destinations: 38,
-        website: 'https://familyfuntravel.com',
+        website: 'familyfuntravel.com',
         location: 'Orlando, USA',
+        foundedYear: 2009,
+        locations: ['Orlando', 'Miami', 'Tampa', 'Fort Lauderdale', 'Key West', 'Naples'],
     },
     {
         id: 6,
@@ -96,7 +108,9 @@ export const agencies: Agency[] = [
         specialties: ['Budget Travel', 'Backpacking', 'Youth Hostels'],
         established: '2011',
         destinations: 67,
-        website: 'https://backpackersparadise.com',
+        website: 'backpackersparadise.com',
         location: 'Amsterdam, Netherlands',
+        foundedYear: 2011,
+        locations: ['Amsterdam', 'Berlin', 'Prague', 'Budapest', 'Vienna', 'Copenhagen'],
     },
 ];

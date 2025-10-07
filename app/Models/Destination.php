@@ -17,18 +17,37 @@ class Destination extends Model
         'agency_id',
         'name',
         'description',
+        'long_description',
         'location',
+        'country',
         'featured_image',
         'category',
         'rating',
         'price',
         'activities',
+        'weather_info',
+        'best_time_to_visit',
+        'temperature_ranges',
+        'duration_days',
+        'max_group_size',
+        'included_services',
+        'photo_gallery',
+        'is_featured',
+        'difficulty_level',
     ];
 
     protected $casts = [
         'activities' => 'array',
+        'weather_info' => 'array',
+        'best_time_to_visit' => 'array',
+        'temperature_ranges' => 'array',
+        'included_services' => 'array',
+        'photo_gallery' => 'array',
         'rating' => 'decimal:2',
         'price' => 'decimal:2',
+        'duration_days' => 'integer',
+        'max_group_size' => 'integer',
+        'is_featured' => 'boolean',
     ];
 
     /**

@@ -1,312 +1,259 @@
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import AppLayout from '@/layouts/app-layout';
-import { Head, Link, router } from '@inertiajs/react';
+import { destinations } from '@/data/destinations';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import { MapPin, Search, Star } from 'lucide-react';
+import { Filter, MapPin, Search, Star } from 'lucide-react';
 import { useState } from 'react';
 
-interface Destination {
-    id: number;
-    name: string;
-    description: string;
-    location: string;
-    category: string;
-    price: number;
-    rating: number;
-    featured_image: string;
-    activities: string | string[];
-    agency: {
-        id: number;
-        name: string;
-        logo: string;
-    };
-    bookings_count: number;
-}
+type CategoryFilter = string | null;
+type SortOption = 'default' | 'price-low' | 'price-high' | 'rating';
 
-interface DestinationsIndexProps {
-    destinations: {
-        data: Destination[];
-        current_page: number;
-        last_page: number;
-        per_page: number;
-        total: number;
-    };
-    filters?: {
-        search?: string;
-        category?: string;
-        min_price?: string;
-        max_price?: string;
-        agency_id?: string;
-        sort?: string;
-    };
-    categories?: string[];
-    agencies?: Array<{
-        id: number;
-        name: string;
-    }>;
-}
+export default function Destinations() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [activeCategory, setActiveCategory] = useState<CategoryFilter>(null);
+    const [sortBy, setSortBy] = useState<SortOption>('default');
+    const [visibleCount, setVisibleCount] = useState(8);
 
-export default function DestinationsIndex({ destinations, filters = {}, categories = [], agencies = [] }: DestinationsIndexProps) {
-    const [searchTerm, setSearchTerm] = useState(filters.search || '');
-    const [selectedCategory, setSelectedCategory] = useState(filters.category || '');
-    const [selectedAgency, setSelectedAgency] = useState(filters.agency_id || '');
-    const [minPrice, setMinPrice] = useState(filters.min_price || '');
-    const [maxPrice, setMaxPrice] = useState(filters.max_price || '');
-    const [sortBy, setSortBy] = useState(filters.sort || 'latest');
+    const categories = Array.from(new Set(destinations.map((dest) => dest.destination)));
 
-    const handleFilter = () => {
-        const params = new URLSearchParams();
-        if (searchTerm) params.append('search', searchTerm);
-        if (selectedCategory) params.append('category', selectedCategory);
-        if (selectedAgency) params.append('agency_id', selectedAgency);
-        if (minPrice) params.append('min_price', minPrice);
-        if (maxPrice) params.append('max_price', maxPrice);
-        if (sortBy) params.append('sort', sortBy);
+   
+    const filteredDestinations = destinations
+        .filter((dest) => {
+            const matchesSearch =
+                dest.name.toLowerCase().includes(searchTerm.toLowerCase()) || dest.destination.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesCategory = !activeCategory || dest.destination === activeCategory;
+            return matchesSearch && matchesCategory;
+        })
+        .sort((a, b) => {
+            if (sortBy === 'price-low') {
+                return a.price - b.price;
+            } else if (sortBy === 'price-high') {
+                return b.price - a.price;
+            } else if (sortBy === 'rating') {
+                return b.rating - a.rating;
+            }
+            return a.id - b.id; // default sort by id
+        });
 
-        router.get(route('destinations.index'), Object.fromEntries(params));
+    const handleLoadMore = () => {
+        setVisibleCount((prev) => prev + 4);
     };
 
-    const clearFilters = () => {
-        setSearchTerm('');
-        setSelectedCategory('');
-        setSelectedAgency('');
-        setMinPrice('');
-        setMaxPrice('');
-        setSortBy('latest');
-        router.get(route('destinations.index'));
+    // Animations
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+            },
+        },
     };
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        }).format(price);
-    };
-
-    const parseActivities = (activities: string | string[]) => {
-        if (Array.isArray(activities)) return activities;
-        if (typeof activities === 'string') {
-            return activities.split(',').map((activity) => activity.trim());
-        }
-        return [];
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5 },
+        },
     };
 
     return (
-        <AppLayout>
-            <Head title="Destinations" />
-
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-                {/* Hero Section */}
-                <div className="relative bg-gradient-to-r from-blue-600 to-purple-700 py-20 text-white">
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="text-center"
-                        >
-                            <h1 className="mb-6 text-4xl font-bold md:text-6xl">Discover Amazing Destinations</h1>
-                            <p className="mx-auto mb-8 max-w-3xl text-xl md:text-2xl">
-                                Explore breathtaking places around the world with our curated collection of destinations
-                            </p>
-                        </motion.div>
-                    </div>
-                </div>
-
-                {/* Filters Section */}
-                <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex min-h-screen flex-col">
+            {/* Hero Section */}
+            <section className="bg-linear-to-r from-primary/20 to-secondary/20 pt-32 pb-16">
+                <div className="container mx-auto px-4">
                     <motion.div
+                        className="mx-auto max-w-3xl text-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="mb-8 rounded-lg bg-white p-6 shadow-lg"
+                        transition={{ duration: 0.6 }}
                     >
-                        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                            <div className="relative">
-                                <Search className="absolute top-3 left-3 h-4 w-4 text-gray-400" />
-                                <Input
-                                    placeholder="Search destinations..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="pl-10"
-                                />
-                            </div>
-
-                            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Category" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">All Categories</SelectItem>
-                                    {categories.map((category) => (
-                                        <SelectItem key={category} value={category}>
-                                            {category}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-
-                            <Select value={selectedAgency} onValueChange={setSelectedAgency}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Agency" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">All Agencies</SelectItem>
-                                    {agencies.map((agency) => (
-                                        <SelectItem key={agency.id} value={agency.id.toString()}>
-                                            {agency.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-
-                            <Select value={sortBy} onValueChange={setSortBy}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Sort by" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="latest">Latest</SelectItem>
-                                    <SelectItem value="price_low">Price: Low to High</SelectItem>
-                                    <SelectItem value="price_high">Price: High to Low</SelectItem>
-                                    <SelectItem value="rating">Highest Rated</SelectItem>
-                                    <SelectItem value="popular">Most Popular</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-                            <Input placeholder="Min Price ($)" type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-                            <Input placeholder="Max Price ($)" type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
-                        </div>
-
-                        <div className="flex gap-4">
-                            <Button onClick={handleFilter} className="flex-1">
-                                Apply Filters
-                            </Button>
-                            <Button variant="outline" onClick={clearFilters}>
-                                Clear
-                            </Button>
-                        </div>
+                        <h1 className="mb-4 text-4xl font-bold md:text-5xl">Discover Amazing Destinations</h1>
+                        <p className="mb-8 text-lg text-muted-foreground">
+                            Explore our handpicked selection of the world's most breathtaking locations and start planning your next adventure.
+                        </p>
                     </motion.div>
+                </div>
+            </section>
 
-                    {/* Results Header */}
-                    <div className="mb-6 flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-gray-900">{destinations.total} Destinations Found</h2>
-                    </div>
-
-                    {/* Destinations Grid */}
-                    <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {destinations.data.map((destination, index) => (
-                            <motion.div
-                                key={destination.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                            >
-                                <Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl">
-                                    <div className="relative h-48 overflow-hidden">
-                                        <img
-                                            src={
-                                                destination.featured_image ||
-                                                'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'
-                                            }
-                                            alt={destination.name}
-                                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                        />
-                                        <div className="absolute top-4 right-4">
-                                            <Badge variant="secondary" className="bg-white/90">
-                                                {destination.category}
-                                            </Badge>
-                                        </div>
-                                        <div className="absolute bottom-4 left-4">
-                                            <div className="flex items-center text-white">
-                                                <Star className="h-4 w-4 fill-current text-yellow-400" />
-                                                <span className="ml-1 text-sm font-medium">{destination.rating?.toFixed(1) || 'N/A'}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <CardHeader className="pb-3">
-                                        <CardTitle className="text-lg transition-colors group-hover:text-blue-600">{destination.name}</CardTitle>
-                                        <CardDescription className="flex items-center text-gray-500">
-                                            <MapPin className="mr-1 h-4 w-4" />
-                                            {destination.location}
-                                        </CardDescription>
-                                    </CardHeader>
-
-                                    <CardContent className="pt-0">
-                                        <p className="mb-3 line-clamp-2 text-sm text-gray-600">{destination.description}</p>
-
-                                        <div className="mb-3 flex items-center justify-between">
-                                            <div className="flex items-center text-sm text-gray-500">
-                                                <img
-                                                    src={
-                                                        destination.agency.logo ||
-                                                        'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=32&h=32&fit=crop'
-                                                    }
-                                                    alt={destination.agency.name}
-                                                    className="mr-2 h-6 w-6 rounded-full"
-                                                />
-                                                {destination.agency.name}
-                                            </div>
-                                        </div>
-
-                                        {destination.activities && parseActivities(destination.activities).length > 0 && (
-                                            <div className="mb-3">
-                                                <div className="flex flex-wrap gap-1">
-                                                    {parseActivities(destination.activities)
-                                                        .slice(0, 2)
-                                                        .map((activity, idx) => (
-                                                            <Badge key={idx} variant="outline" className="text-xs">
-                                                                {activity}
-                                                            </Badge>
-                                                        ))}
-                                                    {parseActivities(destination.activities).length > 2 && (
-                                                        <Badge variant="outline" className="text-xs">
-                                                            +{parseActivities(destination.activities).length - 2} more
-                                                        </Badge>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div className="flex items-center justify-between">
-                                            <div className="text-lg font-bold text-blue-600">{formatPrice(destination.price)}</div>
-                                            <Link href={route('destinations.show', destination.id)}>
-                                                <Button size="sm">View Details</Button>
-                                            </Link>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Pagination */}
-                    {destinations.last_page > 1 && (
-                        <div className="flex justify-center">
-                            <div className="flex gap-2">
-                                {[...Array(destinations.last_page)].map((_, i) => (
-                                    <Link
-                                        key={i + 1}
-                                        href={route('destinations.index', { ...filters, page: i + 1 })}
-                                        className={`rounded-lg px-4 py-2 transition-colors ${
-                                            destinations.current_page === i + 1 ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'
-                                        }`}
-                                    >
-                                        {i + 1}
-                                    </Link>
-                                ))}
-                            </div>
+            {/* Filters Section */}
+            <section className="border-b py-8">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col justify-between gap-4 md:flex-row">
+                        <div className="relative w-full md:w-96">
+                            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
+                            <Input
+                                placeholder="Search destinations or countries..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="pl-10"
+                            />
                         </div>
+
+                        <div className="flex flex-wrap items-center gap-3">
+                            <Filter className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm font-medium">Categories:</span>
+                            <Button
+                                variant={!activeCategory ? 'secondary' : 'outline'}
+                                size="sm"
+                                className="rounded-full"
+                                onClick={() => setActiveCategory(null)}
+                            >
+                                All
+                            </Button>
+                            {categories.map((category) => (
+                                <Button
+                                    key={category}
+                                    variant={activeCategory === category ? 'secondary' : 'outline'}
+                                    size="sm"
+                                    className="rounded-full"
+                                    onClick={() => setActiveCategory(category)}
+                                >
+                                    {category}
+                                </Button>
+                            ))}
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium whitespace-nowrap">Sort by:</span>
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                                className="rounded border px-2 py-1 text-sm focus:ring-1 focus:ring-primary focus:outline-hidden"
+                            >
+                                <option value="default">Default</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Top Rated</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Destinations Grid */}
+            <section className="py-12">
+                <div className="container mx-auto px-4">
+                    {filteredDestinations.length === 0 ? (
+                        <div className="py-12 text-center">
+                            <p className="text-lg text-muted-foreground">No destinations found matching your criteria.</p>
+                            <Button
+                                variant="outline"
+                                className="mt-4"
+                                onClick={() => {
+                                    setSearchTerm('');
+                                    setActiveCategory(null);
+                                }}
+                            >
+                                Clear Filters
+                            </Button>
+                        </div>
+                    ) : (
+                        <>
+                            <motion.div
+                                className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                                variants={containerVariants}
+                                initial="hidden"
+                                animate="visible"
+                            >
+                                {filteredDestinations.slice(0, visibleCount).map((destination) => (
+                                    <motion.div
+                                        key={destination.id}
+                                        className="group overflow-hidden rounded-xl bg-card shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"
+                                        variants={itemVariants}
+                                    >
+                                        <div className="relative h-60 overflow-hidden">
+                                            <img
+                                                src={destination.image}
+                                                alt={destination.name}
+                                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
+                                            <div className="absolute bottom-4 left-4 flex items-center">
+                                                <MapPin className="mr-1 h-4 w-4 text-primary" />
+                                                <span className="text-sm text-white">{destination.destination}</span>
+                                            </div>
+                                            <div className="absolute top-4 right-4 flex items-center rounded-full bg-black/30 px-2 py-1">
+                                                <Star className="mr-1 h-4 w-4 text-yellow-400" />
+                                                <span className="text-sm text-white">{destination.rating}</span>
+                                            </div>
+                                            <div className="absolute top-4 left-4 rounded bg-primary/80 px-2 py-1 text-xs font-medium text-white">
+                                                {destination.destination}
+                                            </div>
+                                        </div>
+                                        <div className="p-5">
+                                            <h3 className="mb-2 text-xl font-semibold">{destination.name}</h3>
+                                            <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">{destination.description}</p>
+                                            <div className="my-3 flex flex-wrap gap-2">
+                                                {destination.highlights.slice(0, 2).map((highlight: string, index: number) => (
+                                                    <span key={index} className="rounded-full bg-secondary/10 px-2 py-1 text-xs text-secondary">
+                                                        {highlight}
+                                                    </span>
+                                                ))}
+                                                {destination.highlights.length > 2 && (
+                                                    <span className="rounded-full bg-muted px-2 py-1 text-xs text-muted-foreground">
+                                                        +{destination.highlights.length - 2}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="flex items-center justify-between pt-2">
+                                                <span className="font-medium text-primary">From {destination.price}</span>
+                                                <Link href={`/destinations/${destination.id}`}>
+                                                    <Button size="sm" className="rounded-full" variant="outline">
+                                                        View Details
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+
+                            {visibleCount < filteredDestinations.length && (
+                                <div className="mt-12 text-center">
+                                    <Button onClick={handleLoadMore} variant="outline" className="rounded-full">
+                                        Load More Destinations
+                                    </Button>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
-            </div>
-        </AppLayout>
+            </section>
+
+            {/* Call to Action */}
+            <section className="bg-muted py-16">
+                <div className="container mx-auto px-4">
+                    <div className="overflow-hidden rounded-2xl bg-card shadow-xl">
+                        <div className="flex flex-col md:flex-row">
+                            <div className="relative h-64 overflow-hidden md:h-auto md:w-1/2">
+                                <img
+                                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2670&auto=format&fit=crop"
+                                    alt="Travel Planning"
+                                    className="h-full w-full object-cover"
+                                />
+                                <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent md:hidden"></div>
+                            </div>
+                            <div className="flex flex-col justify-center p-8 md:w-1/2 md:p-12">
+                                <h2 className="mb-4 text-2xl font-bold md:text-3xl">Need Help Planning Your Trip?</h2>
+                                <p className="mb-6 text-muted-foreground">
+                                    Our travel experts can help you create the perfect itinerary tailored to your preferences, budget, and travel
+                                    style.
+                                </p>
+                                <div className="flex flex-wrap gap-4">
+                                    <Button className="rounded-full">Contact an Expert</Button>
+                                    <Button variant="outline" className="rounded-full">
+                                        View Travel Guides
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     );
 }

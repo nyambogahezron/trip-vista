@@ -9,6 +9,7 @@ export interface Destination {
     reviews: number;
     duration: string;
     highlights: string[];
+    destination: string;
 }
 
 export const destinations: Destination[] = [
@@ -23,6 +24,7 @@ export const destinations: Destination[] = [
         reviews: 324,
         duration: '7 days',
         highlights: ['Beautiful beaches', 'Cultural temples', 'Traditional cuisine', 'Scenic rice terraces'],
+        destination: 'Indonesia',
     },
     {
         id: 2,
@@ -35,6 +37,7 @@ export const destinations: Destination[] = [
         reviews: 256,
         duration: '10 days',
         highlights: ['Mountain hiking', 'Scenic railways', 'Alpine villages', 'Winter sports'],
+        destination: 'Switzerland',
     },
     {
         id: 3,
@@ -47,6 +50,7 @@ export const destinations: Destination[] = [
         reviews: 412,
         duration: '5 days',
         highlights: ['Modern city life', 'Traditional temples', 'Amazing food', 'Cherry blossoms'],
+        destination: 'Japan',
     },
     {
         id: 4,
@@ -59,6 +63,7 @@ export const destinations: Destination[] = [
         reviews: 189,
         duration: '6 days',
         highlights: ['Sunset views', 'White architecture', 'Wine tasting', 'Volcanic beaches'],
+        destination: 'Greece',
     },
     {
         id: 5,
@@ -71,6 +76,7 @@ export const destinations: Destination[] = [
         reviews: 167,
         duration: '8 days',
         highlights: ['Ancient ruins', 'Mountain trekking', 'Inca history', 'Andean culture'],
+        destination: 'Peru',
     },
     {
         id: 6,
@@ -83,5 +89,6 @@ export const destinations: Destination[] = [
         reviews: 134,
         duration: '12 days',
         highlights: ['Wildlife safari', 'Big Five animals', 'Masai culture', 'Great migration'],
+        destination: 'Kenya',
     },
 ];

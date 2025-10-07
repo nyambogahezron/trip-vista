@@ -16,13 +16,49 @@ class AgencyFactory extends Factory
      */
     public function definition(): array
     {
+        $specialtiesOptions = [
+            'Adventure Travel',
+            'Luxury Travel',
+            'Cultural Tours',
+            'Eco Tourism',
+            'Family Travel',
+            'Budget Travel',
+            'Business Travel',
+            'Honeymoon Packages',
+            'Group Tours',
+            'Solo Travel',
+            'Extreme Sports',
+            'Wildlife Safari',
+            'Beach Destinations',
+            'Mountain Expeditions',
+            'City Tours',
+            'Food & Wine Tours',
+            'Photography Tours',
+            'Wellness Retreats'
+        ];
+
+        $locationOptions = [
+            ['Paris', 'Lyon', 'Marseille', 'Nice', 'Bordeaux'],
+            ['London', 'Manchester', 'Edinburgh', 'Liverpool', 'Bath'],
+            ['New York', 'Los Angeles', 'Chicago', 'Miami', 'San Francisco'],
+            ['Tokyo', 'Osaka', 'Kyoto', 'Hiroshima', 'Nara'],
+            ['Rome', 'Milan', 'Venice', 'Florence', 'Naples'],
+            ['Barcelona', 'Madrid', 'Seville', 'Valencia', 'Granada'],
+            ['Berlin', 'Munich', 'Hamburg', 'Cologne', 'Frankfurt'],
+            ['Sydney', 'Melbourne', 'Perth', 'Brisbane', 'Adelaide'],
+        ];
+
+        $selectedLocations = $this->faker->randomElement($locationOptions);
+        $selectedSpecialties = $this->faker->randomElements($specialtiesOptions, $this->faker->numberBetween(2, 5));
+        $foundedYear = $this->faker->numberBetween(2000, 2020);
+
         return [
             'name' => $this->faker->company() . ' Travel Agency',
             'description' => $this->faker->paragraph(3),
             'email' => $this->faker->unique()->companyEmail(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
-            'website' => $this->faker->url(),
+            'website' => $this->faker->domainName(),
             'social_media' => [
                 'facebook' => 'https://facebook.com/' . $this->faker->userName(),
                 'twitter' => 'https://twitter.com/' . $this->faker->userName(),
@@ -30,6 +66,11 @@ class AgencyFactory extends Factory
             ],
             'rating' => $this->faker->randomFloat(1, 3.0, 5.0),
             'location' => $this->faker->city() . ', ' . $this->faker->country(),
+            'founded_year' => $foundedYear,
+            'specialties' => $selectedSpecialties,
+            'locations' => $selectedLocations,
+            'review_count' => $this->faker->numberBetween(50, 2000),
+            'is_featured' => $this->faker->boolean(30), // 30% chance of being featured
             'logo' => 'https://images.unsplash.com/photo-' . $this->faker->randomElement([
                 '1472099645785-5658abf4ff4e',
                 '1507003211169-0a1dd7228f2d',

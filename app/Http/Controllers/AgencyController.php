@@ -98,19 +98,69 @@ class AgencyController extends Controller
             },
             'bookings' => function ($query) {
                 $query->with(['user', 'destination'])->latest()->limit(10);
+            },
+            'approvedReviews' => function ($query) {
+                $query->with('user')->latest()->limit(5);
             }
         ]);
 
-        $agency->loadCount(['destinations', 'bookings']);
+        $agency->loadCount(['destinations', 'bookings', 'approvedReviews']);
+
+        // Get featured tours (destinations with high ratings)
+        $featuredTours = $agency->destinations()
+            ->where('rating', '>=', 4.5)
+            ->withCount('bookings')
+            ->orderBy('rating', 'desc')
+            ->limit(4)
+            ->get();
+
+        // Get recent reviews with user details
+        $recentReviews = $agency->approvedReviews()
+            ->with(['user'])
+            ->latest()
+            ->limit(3)
+            ->get()
+            ->map(function ($review) {
+                return [
+                    'id' => $review->id,
+                    'rating' => $review->rating,
+                    'comment' => $review->comment,
+                    'user_name' => $review->user->name,
+                    'user_avatar' => $review->user->avatar ?? 'https://i.pravatar.cc/150?img=' . ($review->user->id % 50),
+                    'user_location' => $review->user->location ?? 'Unknown',
+                    'created_at' => $review->created_at,
+                ];
+            });
 
         return Inertia::render('agencies/show', [
-            'agency' => $agency,
+            'agency' => [
+                'id' => $agency->id,
+                'name' => $agency->name,
+                'description' => $agency->description,
+                'logo' => $agency->logo,
+                'featured_image' => $agency->featured_image,
+                'rating' => $agency->rating,
+                'review_count' => $agency->review_count,
+                'specialties' => $agency->specialties ?? [],
+                'founded_year' => $agency->founded_year,
+                'locations' => $agency->locations ?? [],
+                'website' => $agency->website,
+                'email' => $agency->email,
+                'phone' => $agency->phone,
+                'location' => $agency->location,
+                'is_featured' => $agency->is_featured,
+                'destinations_count' => $agency->destinations_count,
+                'bookings_count' => $agency->bookings_count,
+            ],
             'stats' => [
                 'total_destinations' => $agency->destinations_count,
                 'total_bookings' => $agency->bookings_count,
                 'average_rating' => $agency->average_rating,
+                'review_count' => $agency->approved_reviews_count,
                 'popular_destinations' => $agency->destinations->take(5),
-            ]
+            ],
+            'featured_tours' => $featuredTours,
+            'recent_reviews' => $recentReviews,
         ]);
     }
 

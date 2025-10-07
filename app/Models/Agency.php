@@ -24,11 +24,21 @@ class Agency extends Model
         'rating',
         'location',
         'featured_image',
+        'founded_year',
+        'specialties',
+        'locations',
+        'review_count',
+        'is_featured',
     ];
 
     protected $casts = [
         'social_media' => 'array',
+        'specialties' => 'array',
+        'locations' => 'array',
         'rating' => 'decimal:2',
+        'founded_year' => 'integer',
+        'review_count' => 'integer',
+        'is_featured' => 'boolean',
     ];
 
     /**

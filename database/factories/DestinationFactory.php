@@ -31,14 +31,68 @@ class DestinationFactory extends Factory
             'Historical Tours',
             'Shopping',
             'Local Markets',
-            'Sunset Viewing'
+            'Sunset Viewing',
+            'Snorkeling',
+            'Rock Climbing',
+            'Zip Lining',
+            'Boat Tours',
+            'City Walking Tours'
         ];
+
+        $countries = [
+            'France',
+            'Italy',
+            'Spain',
+            'Greece',
+            'Thailand',
+            'Japan',
+            'Peru',
+            'Nepal',
+            'Costa Rica',
+            'New Zealand',
+            'Iceland',
+            'Norway',
+            'Kenya',
+            'Tanzania',
+            'Brazil'
+        ];
+
+        $difficultyLevels = ['Easy', 'Moderate', 'Challenging', 'Expert'];
+
+        $bestTimeMonths = [
+            'Mar-Jun, Sep-Nov',
+            'Apr-Oct',
+            'Dec-Mar',
+            'May-Sep',
+            'Year-round',
+            'Jun-Aug',
+            'Nov-Apr'
+        ];
+
+        $includedServices = [
+            'Accommodation',
+            'Transportation',
+            'Guided Tours',
+            'Meals',
+            'Equipment Rental',
+            'Entry Fees',
+            'Professional Guide',
+            'Insurance',
+            'Airport Transfer'
+        ];
+
+        $selectedCountry = $this->faker->randomElement($countries);
+        $selectedCategory = $this->faker->randomElement($categories);
+        $selectedActivities = $this->faker->randomElements($activities, rand(4, 8));
+        $selectedServices = $this->faker->randomElements($includedServices, rand(4, 7));
 
         return [
             'agency_id' => Agency::factory(),
             'name' => $this->faker->unique()->sentence(2) . ' ' . $this->faker->randomElement(['Tour', 'Adventure', 'Experience', 'Journey', 'Escape']) . ' ' . $this->faker->numberBetween(1000, 9999),
-            'description' => $this->faker->paragraph(4),
-            'location' => $this->faker->city() . ', ' . $this->faker->country(),
+            'description' => $this->faker->paragraph(2),
+            'long_description' => $this->faker->paragraph(6),
+            'location' => $this->faker->city() . ', ' . $selectedCountry,
+            'country' => $selectedCountry,
             'featured_image' => 'https://images.unsplash.com/photo-' . $this->faker->randomElement([
                 '1506905925346-21bda4d32df4', // beach
                 '1544735716-392fe2489ffa', // mountain
@@ -53,10 +107,45 @@ class DestinationFactory extends Factory
                 '1541963463532-d68292c34d19', // nature
                 '1469474968437-35cbeaf5b33f'  // adventure
             ]) . '?w=800&h=600&fit=crop',
-            'category' => $this->faker->randomElement($categories),
+            'category' => $selectedCategory,
             'rating' => $this->faker->randomFloat(1, 3.5, 5.0),
             'price' => $this->faker->randomFloat(2, 50.00, 2000.00),
-            'activities' => $this->faker->randomElements($activities, rand(3, 6)),
+            'activities' => $selectedActivities,
+            'weather_info' => [
+                'best_time' => $this->faker->randomElement($bestTimeMonths),
+                'rainfall' => $this->faker->randomElement(['Low', 'Moderate', 'High']),
+                'humidity' => $this->faker->numberBetween(40, 85) . '%',
+                'wind_speed' => $this->faker->numberBetween(5, 25) . ' km/h'
+            ],
+            'best_time_to_visit' => [
+                'months' => $this->faker->randomElement($bestTimeMonths),
+                'weather_conditions' => $this->faker->randomElement([
+                    'Dry and sunny',
+                    'Mild temperatures',
+                    'Cool and pleasant',
+                    'Warm and clear',
+                    'Perfect weather conditions'
+                ])
+            ],
+            'temperature_ranges' => [
+                'summer' => ['min' => 25, 'max' => 32],
+                'winter' => ['min' => 15, 'max' => 22],
+                'spring' => ['min' => 18, 'max' => 25],
+                'fall' => ['min' => 17, 'max' => 24]
+            ],
+            'duration_days' => $this->faker->numberBetween(3, 14),
+            'max_group_size' => $this->faker->numberBetween(8, 20),
+            'included_services' => $selectedServices,
+            'photo_gallery' => [
+                'https://source.unsplash.com/random/800x600?travel,' . urlencode($selectedCountry) . ',1',
+                'https://source.unsplash.com/random/800x600?travel,' . urlencode($selectedCountry) . ',2',
+                'https://source.unsplash.com/random/800x600?travel,' . urlencode($selectedCountry) . ',3',
+                'https://source.unsplash.com/random/800x600?travel,' . urlencode($selectedCountry) . ',4',
+                'https://source.unsplash.com/random/800x600?travel,' . urlencode($selectedCountry) . ',5',
+                'https://source.unsplash.com/random/800x600?travel,' . urlencode($selectedCountry) . ',6',
+            ],
+            'is_featured' => $this->faker->boolean(30), // 30% chance of being featured
+            'difficulty_level' => $this->faker->randomElement($difficultyLevels),
         ];
     }
 

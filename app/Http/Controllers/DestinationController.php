@@ -123,26 +123,169 @@ class DestinationController extends Controller
             'agency',
             'bookings' => function ($query) {
                 $query->with('user')->latest()->limit(10);
+            },
+            'reviews' => function ($query) {
+                $query->with('user')->latest()->limit(5);
             }
         ]);
 
-        $destination->loadCount('bookings');
+        $destination->loadCount(['bookings', 'reviews']);
 
-        // Related destinations
+        // Related destinations from same agency
+        $agencyDestinations = Destination::where('agency_id', $destination->agency_id)
+            ->where('id', '!=', $destination->id)
+            ->withCount('bookings')
+            ->limit(3)
+            ->get();
+
+        // Related destinations by category
         $relatedDestinations = Destination::where('category', $destination->category)
             ->where('id', '!=', $destination->id)
             ->withCount('bookings')
             ->limit(4)
             ->get();
 
+        // Popular destinations (alternative recommendations)
+        $popularDestinations = Destination::popular()
+            ->where('id', '!=', $destination->id)
+            ->limit(6)
+            ->get();
+
+        // Calculate average rating from reviews
+        $averageRating = $destination->reviews()->avg('rating') ?? $destination->rating ?? 4.5;
+
+        // Process recent reviews for display
+        $recentReviews = $destination->reviews->map(function ($review) {
+            return [
+                'id' => $review->id,
+                'rating' => $review->rating,
+                'comment' => $review->comment,
+                'user' => [
+                    'name' => $review->user->name,
+                    'avatar' => $review->user->avatar ?? "https://ui-avatars.com/api/?name=" . urlencode($review->user->name)
+                ],
+                'created_at' => $review->created_at->format('M j, Y'),
+            ];
+        });
+
+        // Weather data processing
+        $weatherInfo = [
+            'description' => $destination->weather_info,
+            'temperature_ranges' => $destination->temperature_ranges,
+            'best_time_to_visit' => $this->getBestTimeToVisit($destination->temperature_ranges)
+        ];
+
+        // Activities and services
+        $activities = $destination->activities ?? [];
+        $includedServices = $destination->included_services ?? [];
+
         return Inertia::render('destinations/show', [
-            'destination' => $destination,
+            'destination' => array_merge($destination->toArray(), [
+                'average_rating' => round($averageRating, 1),
+                'review_count' => $destination->reviews_count,
+                'weather' => $weatherInfo,
+                'activities' => $activities,
+                'included_services' => $includedServices,
+                'photo_gallery' => $destination->photo_gallery ?? [],
+            ]),
+            'agencyDestinations' => $agencyDestinations,
             'relatedDestinations' => $relatedDestinations,
+            'popularDestinations' => $popularDestinations,
+            'recentReviews' => $recentReviews,
             'stats' => [
                 'total_bookings' => $destination->bookings_count,
-                'average_rating' => $destination->average_rating,
-            ]
+                'average_rating' => round($averageRating, 1),
+                'review_count' => $destination->reviews_count,
+                'duration_days' => $destination->duration_days ?? 7,
+                'max_group_size' => $destination->max_group_size ?? 20,
+                'difficulty_level' => $destination->difficulty_level ?? 'moderate'
+            ],
+            'itinerary' => $this->generateSampleItinerary($destination),
         ]);
+    }
+
+    /**
+     * Generate a sample itinerary based on destination data
+     */
+    private function generateSampleItinerary($destination)
+    {
+        $days = $destination->duration_days ?? 7;
+        $activities = $destination->activities ?? ['Sightseeing', 'Cultural Experience', 'Adventure'];
+
+        $itinerary = [];
+        for ($day = 1; $day <= min($days, 7); $day++) {
+            $activity = $activities[($day - 1) % count($activities)] ?? 'Exploration';
+            $itinerary[] = [
+                'day' => $day,
+                'title' => "Day {$day}: {$activity}",
+                'description' => $this->generateDayDescription($activity, $destination->name),
+                'highlights' => $this->generateDayHighlights($activity)
+            ];
+        }
+
+        return $itinerary;
+    }
+
+    /**
+     * Generate day description for itinerary
+     */
+    private function generateDayDescription($activity, $destinationName)
+    {
+        $descriptions = [
+            'Sightseeing' => "Explore the iconic landmarks and breathtaking views of {$destinationName}",
+            'Cultural Experience' => "Immerse yourself in the rich local culture and traditions",
+            'Adventure' => "Embark on thrilling adventures and outdoor activities",
+            'Wildlife Watching' => "Discover amazing wildlife in their natural habitat",
+            'Historical Tours' => "Journey through fascinating historical sites and stories",
+            'Food Tours' => "Savor authentic local cuisine and culinary delights",
+            'Nature Walks' => "Connect with nature through guided walks and hikes"
+        ];
+
+        return $descriptions[$activity] ?? "Experience the best of {$destinationName}";
+    }
+
+    /**
+     * Generate highlights for each day
+     */
+    private function generateDayHighlights($activity)
+    {
+        $highlights = [
+            'Sightseeing' => ['Photo opportunities', 'Guided tour', 'Local insights'],
+            'Cultural Experience' => ['Traditional performances', 'Local artisans', 'Cultural workshops'],
+            'Adventure' => ['Outdoor activities', 'Equipment provided', 'Safety briefing'],
+            'Wildlife Watching' => ['Expert guides', 'Photography tips', 'Conservation insights'],
+            'Historical Tours' => ['Expert historians', 'Ancient sites', 'Fascinating stories'],
+            'Food Tours' => ['Local restaurants', 'Cooking classes', 'Market visits'],
+            'Nature Walks' => ['Scenic routes', 'Flora and fauna', 'Peaceful environment']
+        ];
+
+        return $highlights[$activity] ?? ['Memorable experiences', 'Professional guides', 'Amazing discoveries'];
+    }
+
+    /**
+     * Determine best time to visit based on temperature ranges
+     */
+    private function getBestTimeToVisit($temperatureRanges)
+    {
+        if (!$temperatureRanges)
+            return 'Year-round';
+
+        $ranges = is_string($temperatureRanges) ? json_decode($temperatureRanges, true) : $temperatureRanges;
+
+        if (!$ranges)
+            return 'Year-round';
+
+        $bestSeasons = [];
+        foreach ($ranges as $season => $temps) {
+            if (isset($temps['min']) && isset($temps['max'])) {
+                // Consider seasons with temperatures between 15-25°C as ideal
+                if ($temps['min'] >= 10 && $temps['max'] <= 30) {
+                    $bestSeasons[] = ucfirst($season);
+                }
+            }
+        }
+
+        return !empty($bestSeasons) ? implode(' and ', $bestSeasons) : 'Year-round';
     }
 
     /**
