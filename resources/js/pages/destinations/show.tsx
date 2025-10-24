@@ -1,4 +1,3 @@
-import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import {
@@ -19,7 +18,7 @@ import {
     TrendingUp,
     Users,
 } from 'lucide-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface Weather {
     description: string;
@@ -59,6 +58,7 @@ interface Destination {
     activities: string[];
     included_services: string[];
     weather: Weather;
+    bookings_count?: number;
     agency: {
         id: number;
         name: string;
@@ -96,13 +96,7 @@ interface Props {
     itinerary: ItineraryDay[];
 }
 
-export default function Show({
-    destination,
-    relatedDestinations,
-    recentReviews,
-    stats,
-    itinerary,
-}: Props)  {
+export default function Show({ destination, relatedDestinations, recentReviews, stats, itinerary }: Props) {
     const [activeTab, setActiveTab] = useState<'overview' | 'itinerary' | 'reviews' | 'gallery'>('overview');
 
     const getDifficultyColor = (level: string) => {
@@ -225,14 +219,14 @@ export default function Show({
                         >
                             <nav className="flex space-x-8">
                                 {[
-                                    { id: 'overview', label: 'Overview' },
-                                    { id: 'itinerary', label: 'Itinerary' },
-                                    { id: 'reviews', label: 'Reviews' },
-                                    { id: 'gallery', label: 'Gallery' },
+                                    { id: 'overview' as const, label: 'Overview' },
+                                    { id: 'itinerary' as const, label: 'Itinerary' },
+                                    { id: 'reviews' as const, label: 'Reviews' },
+                                    { id: 'gallery' as const, label: 'Gallery' },
                                 ].map((tab) => (
                                     <button
                                         key={tab.id}
-                                        onClick={() => setActiveTab(tab.id as any)}
+                                        onClick={() => setActiveTab(tab.id)}
                                         className={`border-b-2 px-1 py-4 text-sm font-medium ${
                                             activeTab === tab.id
                                                 ? 'border-blue-500 text-blue-600'
@@ -256,17 +250,19 @@ export default function Show({
                                     </div>
 
                                     {/* Activities */}
-                                    <div>
-                                        <h3 className="mb-4 text-xl font-bold">Activities Included</h3>
-                                        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                                            {destination.activities.map((activity, index) => (
-                                                <div key={index} className="flex items-center gap-2 rounded-lg bg-gray-50 p-3">
-                                                    <CheckCircle className="h-5 w-5 text-green-500" />
-                                                    <span className="text-sm">{activity}</span>
-                                                </div>
-                                            ))}
+                                    {destination.activities && Array.isArray(destination.activities) && destination.activities.length > 0 && (
+                                        <div>
+                                            <h3 className="mb-4 text-xl font-bold">Activities Included</h3>
+                                            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                                                {destination.activities.map((activity, index) => (
+                                                    <div key={index} className="flex items-center gap-2 rounded-lg bg-gray-50 p-3">
+                                                        <CheckCircle className="h-5 w-5 text-green-500" />
+                                                        <span className="text-sm">{activity}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
 
                                     {/* Weather Info */}
                                     <div>
@@ -293,17 +289,21 @@ export default function Show({
                                     </div>
 
                                     {/* Included Services */}
-                                    <div>
-                                        <h3 className="mb-4 text-xl font-bold">What's Included</h3>
-                                        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                                            {destination.included_services.map((service, index) => (
-                                                <div key={index} className="flex items-start gap-3 rounded-lg bg-green-50 p-3">
-                                                    <CheckCircle className="mt-0.5 h-5 w-5 text-green-500" />
-                                                    <span className="text-sm">{service}</span>
+                                    {destination.included_services &&
+                                        Array.isArray(destination.included_services) &&
+                                        destination.included_services.length > 0 && (
+                                            <div>
+                                                <h3 className="mb-4 text-xl font-bold">What's Included</h3>
+                                                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                                                    {destination.included_services.map((service, index) => (
+                                                        <div key={index} className="flex items-start gap-3 rounded-lg bg-green-50 p-3">
+                                                            <CheckCircle className="mt-0.5 h-5 w-5 text-green-500" />
+                                                            <span className="text-sm">{service}</span>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                            </div>
+                                        )}
                                 </div>
                             )}
 
@@ -533,6 +533,4 @@ export default function Show({
             </div>
         </section>
     );
-};
-
-
+}

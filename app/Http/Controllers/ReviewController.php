@@ -190,7 +190,7 @@ class ReviewController extends Controller
     /**
      * Get reviews for a specific reviewable (Agency or Destination).
      */
-    public function getReviewsFor(Request $request, string $type, int $id)
+    public function getReviewsFor(Request $request, string $type, string $id)
     {
         $reviewableClass = match ($type) {
             'agencies' => Agency::class,
