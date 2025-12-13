@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-white">
               <Compass className="h-8 w-8 text-primary" />
-              <span>ExploreX</span>
+              <span>TripVista</span>
             </Link>
             <p className="text-gray-400">
               Discover the world's most breathtaking destinations and unforgettable adventures with our expert guides.
@@ -88,14 +88,14 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <span>hello@explorex.travel</span>
+                <span>hello@TripVista.travel</span>
               </li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
-          <p>&copy; {currentYear} ExploreX. All rights reserved.</p>
+          <p>&copy; {currentYear} TripVista. All rights reserved.</p>
         </div>
       </div>
     </footer>

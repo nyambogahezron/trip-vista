@@ -204,7 +204,7 @@ export default function Agencies() {
               <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4">Are You a Tour Agency?</h2>
                 <p className="text-muted-foreground mb-6">
-                  Partner with ExploreX and connect with thousands of travelers looking for their next adventure. Showcase your unique tours and grow your business.
+                  Partner with TripVista and connect with thousands of travelers looking for their next adventure. Showcase your unique tours and grow your business.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button className="rounded-full">

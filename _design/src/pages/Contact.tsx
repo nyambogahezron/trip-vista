@@ -112,9 +112,9 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold text-lg">Email Us</h3>
                       <p className="text-muted-foreground mt-1">
-                        General Inquiries: <a href="mailto:hello@explorex.travel" className="text-primary hover:underline">hello@explorex.travel</a><br />
-                        Support: <a href="mailto:support@explorex.travel" className="text-primary hover:underline">support@explorex.travel</a><br />
-                        Partnerships: <a href="mailto:partners@explorex.travel" className="text-primary hover:underline">partners@explorex.travel</a>
+                        General Inquiries: <a href="mailto:hello@TripVista.travel" className="text-primary hover:underline">hello@TripVista.travel</a><br />
+                        Support: <a href="mailto:support@TripVista.travel" className="text-primary hover:underline">support@TripVista.travel</a><br />
+                        Partnerships: <a href="mailto:partners@TripVista.travel" className="text-primary hover:underline">partners@TripVista.travel</a>
                       </p>
                     </div>
                   </div>

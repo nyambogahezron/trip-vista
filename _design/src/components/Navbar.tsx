@@ -38,7 +38,7 @@ export default function Navbar() {
         >
           <Compass className="h-8 w-8 stroke-primary animate-pulse" />
           <span className={`${isScrolled ? "text-foreground" : "text-white text-shadow"}`}>
-            ExploreX
+            TripVista
           </span>
         </Link>
 

@@ -28,7 +28,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">About ExploreX</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">About TripVista</h1>
             <p className="text-xl text-white/90 mb-8">
               We're passionate about bringing unforgettable travel experiences to adventurers around the world.
             </p>
@@ -50,7 +50,7 @@ export default function About() {
               <div className="md:w-1/2">
                 <h2 className="text-3xl font-bold mb-4">Our Story</h2>
                 <p className="text-muted-foreground mb-4">
-                  ExploreX began in 2015 with a simple idea: to connect travelers with authentic local experiences around the world. Our founders, avid travelers themselves, were frustrated with cookie-cutter tours that missed the true essence of destinations.
+                  TripVista began in 2015 with a simple idea: to connect travelers with authentic local experiences around the world. Our founders, avid travelers themselves, were frustrated with cookie-cutter tours that missed the true essence of destinations.
                 </p>
                 <p className="text-muted-foreground">
                   Starting with just three destinations and a handful of partner agencies, we've grown to feature hundreds of carefully vetted tours across six continents. Our mission remains the same: to help travelers discover the world in meaningful ways through responsible tourism and authentic cultural exchange.
