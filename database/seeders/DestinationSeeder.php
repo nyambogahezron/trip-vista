@@ -25,6 +25,7 @@ class DestinationSeeder extends Seeder
         // Create featured destinations for each agency
         $featuredDestinations = [
             [
+                'agency_id' => $agencies->where('name', 'Adventure Seekers Travel')->first()?->id ?? $agencies->first()->id,
                 'name' => 'Everest Base Camp Trek',
                 'description' => 'Epic 14-day trek to the base of the world\'s highest mountain',
                 'location' => 'Nepal',
@@ -56,10 +57,11 @@ class DestinationSeeder extends Seeder
                     'https://images.unsplash.com/photo-1571018374051-4b43de3fa944?w=800&h=600&fit=crop',
                     'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop'
                 ]),
+                'category' => 'Adventure',
+                'rating' => 4.9,
                 'price' => 2500.00,
-                'duration' => '14 days',
-                'type' => 'Adventure',
-                'image' => 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop',
+                'activities' => ['Trekking', 'Mountain Climbing', 'Cultural Tours', 'Photography', 'Wildlife Viewing'],
+                'featured_image' => 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop',
                 'is_featured' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
